@@ -1,0 +1,29 @@
+## Brute Force Detection
+Description: Multiple failed login attempts within short period.
+MITRE Mapping: T1110
+
+<group name="windows,authentication,bruteforce">
+
+  <!-- Detect multiple failed logon attempts -->
+  <rule id="100100" level="10">
+    <if_group>windows</if_group>
+    <field name="win.system.eventID">4625</field>
+    <description>Windows failed login attempt detected</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>authentication_failed,</group>
+  </rule>
+
+  <!-- Brute force correlation rule -->
+  <rule id="100101" level="12" frequency="5" timeframe="120">
+    <if_matched_sid>100100</if_matched_sid>
+    <same_source_ip />
+    <description>Possible Brute Force Attack - Multiple failed logins from same IP</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>attack,bruteforce,authentication,</group>
+  </rule>
+
+</group>
