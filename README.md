@@ -58,8 +58,3 @@ Following NIST 800-61 lifecycle:
 - Develop SIEM detection rules
 - Practice threat hunting and log analysis
 - Document real-world investigation scenarios
-
----
-
-## Status
-🚧 Lab setup in progress — detections, dashboards, and incident reports will be added incrementally.
