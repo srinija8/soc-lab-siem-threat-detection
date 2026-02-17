@@ -1,0 +1,25 @@
+<group name="windows,powershell,suspicious">
+
+  <!-- Detect PowerShell execution -->
+  <rule id="100200" level="7">
+    <if_group>windows</if_group>
+    <field name="win.system.eventID">4104</field>
+    <description>PowerShell script execution detected</description>
+    <group>powershell,execution,</group>
+    <mitre>
+      <id>T1059</id>
+    </mitre>
+  </rule>
+
+  <!-- Detect encoded or obfuscated PowerShell commands -->
+  <rule id="100201" level="12">
+    <if_sid>100200</if_sid>
+    <match>-enc|-encodedcommand|FromBase64String|IEX|Invoke-Expression</match>
+    <description>Suspicious PowerShell encoded or obfuscated command detected</description>
+    <group>attack,powershell,suspicious_execution,</group>
+    <mitre>
+      <id>T1059</id>
+    </mitre>
+  </rule>
+
+</group>
