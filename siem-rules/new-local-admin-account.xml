@@ -1,0 +1,29 @@
+<group name="windows,account_management,privilege_escalation">
+
+  <!-- User account created -->
+  <rule id="100300" level="10">
+    <if_group>windows</if_group>
+    <field name="win.system.eventID">4720</field>
+    <description>New local user account created</description>
+    <group>account_created,windows,</group>
+    <mitre>
+      <id>T1078</id>
+    </mitre>
+  </rule>
+
+  <!-- User added to a privileged local group (e.g., Administrators) -->
+  <rule id="100301" level="12">
+    <if_group>windows</if_group>
+    <field name="win.system.eventID">4732</field>
+    <description>User added to a privileged local group (possible privilege escalation)</description>
+    <group>privilege_escalation,account_modified,windows,</group>
+    <mitre>
+      <id>T1078</id>
+    </mitre>
+  </rule>
+
+  <!-- Optional: Correlate account creation + privileged group membership within 10 minutes -->
+  <rule id="100302" level="14" frequency="2" timeframe="600">
+    <if_matched_sid>100300,100301</if_matched_sid>
+    <description>Potential persistence: New user created and added to privileged group within 10 minutes</description>
+    <group>attack,persistence,priv
