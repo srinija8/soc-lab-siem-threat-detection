@@ -1,4 +1,4 @@
-## Brute Force Detection
+# Brute Force Detection
 Description: Multiple failed login attempts within short period.
 MITRE Mapping: T1110
 
